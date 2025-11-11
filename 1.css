@@ -1,0 +1,26 @@
+.wheel-container {
+    position: relative;
+    width: 500px; /* عرض و ارتفاع کانواس را تنظیم کنید */
+    height: 500px;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#wheelCanvas {
+    border: 5px solid #ccc;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+#spinWheel {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+#spinWheel:hover {
+    background-color: #45a049;
+}
