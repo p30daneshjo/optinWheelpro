@@ -10,13 +10,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // گزینه‌های گردونه
     const segments = [
-        { text: '10% تخفیف', color: '#FFD700' },
-        { text: 'سفرکیش', color: '#FF6347' },
-        { text: 'گوشی موبایل', color: '#ADFF2F' },
-        { text: '10 دلار ', color: '#1E90FF' },
-        { text: 'هیچ شانس', color: '#808080' },
-        { text: 'آیفون 17 ', color: '#bbafafff' },
-        { text: '100دلار ', color: '#FFC0CB' }
+        { text: '10% تخفیف', color: '#bdbdbdff' },
+        { text: 'سفرکیش', color: '#e1141e' },
+        { text: '10 دلار ', color: '#505050' },
+        { text: 'هیچ شانس', color: '#e1141e' },
+        { text: 'گوشی موبایل', color: '#505050' },
+        { text: 'آیفون 17 ', color: '#e1141e' },
+        { text: ' پوچ', color: '#969696ff' },
+        { text: '100دلار ', color: '#e1141e' }
     ];
 
     const numSegments = segments.length;
@@ -39,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
             ctx.translate(wheelCanvas.width / 2 + Math.cos(angle + arc / 2) * (wheelCanvas.width / 2 - 50),
                           wheelCanvas.height / 2 + Math.sin(angle + arc / 2) * (wheelCanvas.width / 2 - 50));
             ctx.rotate(angle + arc / 2 + Math.PI / 2);
-            ctx.fillStyle = '#000';
+            ctx.fillStyle = '#fff';
             ctx.font = 'bold 16px Arial';
             ctx.textAlign = 'center';
             ctx.fillText(segments[i].text, 0, 0);
@@ -55,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // چرخش تصادفی بین 5 تا 10 دور کامل + یک مقدار تصادفی برای توقف روی یک بخش
         const totalRotation = Math.random() * (3600 - 1800) + 1800; // 5 تا 10 دور
-        const duration = 5000; // مدت زمان چرخش (میلی‌ثانیه)
+        const duration = 4600; // مدت زمان چرخش (میلی‌ثانیه)
         const startTime = Date.now();
 
         function animateSpin() {
