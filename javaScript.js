@@ -10,13 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // گزینه‌های گردونه
     const segments = [
-        { text: '10% تخفیف', color: '#bdbdbdff' },
+        { text: '10% تخفیف', color: '#9e9c9cff' },
         { text: 'سفرکیش', color: '#e1141e' },
         { text: '10 دلار ', color: '#505050' },
         { text: 'هیچ شانس', color: '#e1141e' },
         { text: 'گوشی موبایل', color: '#505050' },
         { text: 'آیفون 17 ', color: '#e1141e' },
-        { text: ' پوچ', color: '#969696ff' },
+        { text: ' پوچ', color: '#505050' },
         { text: '100دلار ', color: '#e1141e' }
     ];
 
@@ -102,3 +102,61 @@ document.addEventListener('DOMContentLoaded', function() {
     // رویداد کلیک برای دکمه چرخش
     spinWheelBtn.addEventListener('click', spinWheel);
 });
+
+
+// تابع برای چرخاندن گردونه
+function spinWheel() {
+    if (spinning) return;
+    spinning = true;
+    spinWheelBtn.disabled = true;
+
+    let totalRotation;
+
+    // --- احتمال اختصاصی ---
+    const chancePhone = Math.floor(Math.random() * 1000);   // 1/1000 برای گوشی
+    const chanceIphone = Math.floor(Math.random() * 1000);  // 1/1000 برای آیفون 17
+
+    const phoneIndex = segments.findIndex(s => s.text === 'گوشی موبایل');
+    const iphoneIndex = segments.findIndex(s => s.text === 'آیفون 17 ');
+
+    // اگر قرعه گوشی موبایل افتاد
+    if (chancePhone === 0 && phoneIndex !== -1) {
+        const targetAngle = phoneIndex * arc + arc / 2;
+        const targetDeg = (targetAngle * 180) / Math.PI;
+
+        totalRotation = (Math.random() * (3600 - 1800) + 1800) + (360 - targetDeg);
+
+    // اگر قرعه آیفون 17 افتاد
+    } else if (chanceIphone === 0 && iphoneIndex !== -1) {
+        const targetAngle = iphoneIndex * arc + arc / 2;
+        const targetDeg = (targetAngle * 180) / Math.PI;
+
+        totalRotation = (Math.random() * (3600 - 1800) + 1800) + (360 - targetDeg);
+
+    // حالت معمولی
+    } else {
+        totalRotation = Math.random() * (3600 - 1800) + 1800;
+    }
+
+    const duration = 4600;
+    const startTime = Date.now();
+
+    function animateSpin() {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+
+        rotation = (totalRotation * easeOut) % 360;
+
+        drawWheel();
+
+        if (progress < 1) {
+            requestAnimationFrame(animateSpin);
+        } else {
+            spinning = false;
+            determineWinner();
+        }
+    }
+    requestAnimationFrame(animateSpin);
+}
+
